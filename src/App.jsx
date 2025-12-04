@@ -444,7 +444,7 @@ export default function App() {
           {/* Logo */}
           <div className="flex justify-center mb-4">
             <img 
-              src="/Public/1. Logo BINUS Warna.png" 
+              src="/binus-logo.png" 
               alt="BINUS Logo" 
               className="h-12 sm:h-16 md:h-20 w-auto object-contain animate-fade-in"
             />
