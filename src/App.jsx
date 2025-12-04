@@ -99,25 +99,21 @@ export default function App() {
       {
         key: "visionary",
         title: "Sunset Reflection",
-        subtitle: "Calm, deep, & imaginative",
         img: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
         key: "caregiver",
         title: "Coffee Shop Chat",
-        subtitle: "Warm, social, comfortable",
         img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
         key: "explorer",
         title: "Forest Path",
-        subtitle: "Curious, spontaneous, adventurous",
         img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
-        key: "strategist",
+        key: "Bambang",
         title: "Minimal Desk",
-        subtitle: "Structured, organized, focused",
         img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
     ];
@@ -367,7 +363,7 @@ export default function App() {
       <div className="space-y-8">
         <div className="text-center">
           <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
-            🎉 Personality Results 🎉
+            Personality Results 
           </h2>
           <p className="text-gray-600">Here are the two types that best reflect your choices.</p>
         </div>
@@ -447,7 +443,7 @@ export default function App() {
             }}
             className="px-8 py-4 rounded-xl border-2 border-indigo-300 hover:border-indigo-500 font-semibold text-indigo-700 transition-all hover:shadow-lg transform hover:scale-105"
           >
-            🔄 Try Again
+            Try Again
           </button>
           <button
             onClick={() => {
@@ -512,19 +508,11 @@ export default function App() {
 
           <div className="inline-block mb-8 animate-fade-in-up px-4">
             <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 leading-tight py-2">
-              ✨ Digital Personality Scanner
+              Digital Personality Scanner
             </h1>
           </div>
           <p className="text-gray-700 text-lg md:text-xl font-medium animate-fade-in-up animation-delay-200 mb-6">Interactive game-style personality test</p>
-          <div className="flex items-center justify-center gap-2 mb-12 text-sm text-gray-600 animate-fade-in-up animation-delay-400">
-            <span className="bg-white px-3 py-1 rounded-full shadow-sm">📸 images</span>
-            <span className="text-gray-400">→</span>
-            <span className="bg-white px-3 py-1 rounded-full shadow-sm">📖 stories</span>
-            <span className="text-gray-400">→</span>
-            <span className="bg-white px-3 py-1 rounded-full shadow-sm">🔀 choices</span>
-            <span className="text-gray-400">→</span>
-            <span className="bg-white px-3 py-1 rounded-full shadow-sm">🎯 results</span>
-          </div>
+
         </header>
 
         <main className="bg-transparent relative z-0">
@@ -571,7 +559,7 @@ export default function App() {
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="✏️ Name (optional)"
+                    placeholder="Name (optional)"
                     className="px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition-all"
                   />
                   <div className="text-sm text-gray-500 bg-indigo-50 px-3 py-2 rounded-lg">
@@ -596,7 +584,7 @@ export default function App() {
           </div>
 
           <footer className="mt-6 text-center text-xs text-gray-600 bg-white bg-opacity-50 backdrop-blur-md p-4 rounded-xl border border-white border-opacity-40 hover:bg-opacity-70 transition-all duration-300">
-            🎨 Built for workshop & interactive booths — customize questions, images, and scoring as needed.
+            Built for workshop & interactive booths — customize questions, images, and scoring as needed.
           </footer>
         </main>
       </div>
