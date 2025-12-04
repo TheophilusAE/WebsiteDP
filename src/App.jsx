@@ -440,7 +440,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-6 md:p-12">
       <div className="max-w-6xl mx-auto">
-        <header className="mb-8 text-center">
+        <header className="mb-8 text-center relative">
+          {/* Logo */}
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/Public/1. Logo BINUS Warna.png" 
+              alt="BINUS Logo" 
+              className="h-12 sm:h-16 md:h-20 w-auto object-contain animate-fade-in"
+            />
+          </div>
+
           <div className="inline-block mb-4">
             <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               ✨ Digital Personality Scanner
