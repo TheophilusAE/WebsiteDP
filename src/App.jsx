@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import confetti from "canvas-confetti";
 
 // Digital Personality Scanner - Single-file React component
 // Usage: drop into a React app (Vite/CRA) as App.jsx and run.
@@ -135,15 +136,15 @@ export default function App() {
                 addScore(c.key, 3, `Image: ${c.title}`);
                 setSelectedAnswers({ ...selectedAnswers, image: c.key });
               }}
-              className={`group bg-white rounded-2xl overflow-hidden shadow-lg transform hover:-translate-y-2 transition-all duration-300 p-0 border-2 ${
-                selectedAnswers.image === c.key ? 'border-indigo-500 ring-4 ring-indigo-200' : 'border-transparent hover:border-indigo-300'
+              className={`group bg-white rounded-2xl overflow-hidden shadow-lg transform hover:-translate-y-3 hover:shadow-2xl transition-all duration-300 p-0 border-2 ${
+                selectedAnswers.image === c.key ? 'border-indigo-500 ring-4 ring-indigo-200 shadow-indigo-200' : 'border-transparent hover:border-indigo-300'
               }`}
             >
               <div className="h-56 bg-gray-100 overflow-hidden relative">
                 <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 {selectedAnswers.image === c.key && (
-                  <div className="absolute inset-0 bg-indigo-600 bg-opacity-20 flex items-center justify-center">
-                    <div className="text-white text-5xl">✓</div>
+                  <div className="absolute inset-0 bg-indigo-600 bg-opacity-20 flex items-center justify-center animate-fade-in">
+                    <div className="text-white text-6xl animate-bounce-in">✓</div>
                   </div>
                 )}
               </div>
@@ -200,7 +201,7 @@ export default function App() {
         </h2>
         <div className="space-y-6 mt-6">
           {stories.map((s, idx) => (
-            <div key={idx} className="bg-gradient-to-br from-white to-indigo-50 p-6 rounded-2xl shadow-lg border border-indigo-100">
+            <div key={idx} className="bg-gradient-to-br from-white to-indigo-50 p-6 rounded-2xl shadow-lg border border-indigo-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
               <div className="font-semibold text-lg text-gray-900 mb-4">{s.q}</div>
               <div className="mt-4 flex gap-4 flex-col md:flex-row">
                 <button
@@ -268,7 +269,7 @@ export default function App() {
         </h2>
         <div className="grid grid-cols-1 gap-5 mt-6">
           {pairs.map((p, i) => (
-            <div key={i} className="bg-gradient-to-br from-white to-purple-50 p-6 rounded-2xl shadow-lg border border-purple-100">
+            <div key={i} className="bg-gradient-to-br from-white to-purple-50 p-6 rounded-2xl shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
               <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
                 <div className="md:w-1/2">
                   <div className="text-sm font-semibold text-indigo-600 mb-2">Question {i + 1}</div>
@@ -331,6 +332,37 @@ export default function App() {
   const ResultScreen = () => {
     const top = computeResult();
 
+    useEffect(() => {
+      // Trigger confetti when results load
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#4F46E5', '#7C3AED', '#EC4899', '#8B5CF6']
+      });
+      
+      // Second burst
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#4F46E5', '#7C3AED', '#EC4899']
+        });
+      }, 250);
+      
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#4F46E5', '#7C3AED', '#EC4899']
+        });
+      }, 400);
+    }, []);
+
     return (
       <div className="space-y-8">
         <div className="text-center">
@@ -342,7 +374,7 @@ export default function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           {top.map((t, idx) => (
-            <div key={t.id} className="bg-gradient-to-br from-white via-indigo-50 to-purple-50 p-8 rounded-3xl shadow-2xl border-2 border-indigo-200 transform hover:scale-105 transition-all duration-300">
+            <div key={t.id} className="bg-gradient-to-br from-white via-indigo-50 to-purple-50 p-8 rounded-3xl shadow-2xl border-2 border-indigo-200 transform hover:scale-105 transition-all duration-300 animate-slide-up" style={{animationDelay: `${idx * 200}ms`}}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="text-6xl">{t.emoji}</div>
                 <div className="flex-1">
@@ -438,29 +470,65 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-6 md:p-12">
-      <div className="max-w-6xl mx-auto">
-        <header className="mb-8 text-center relative">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-6 md:p-12 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+        <div className="absolute top-0 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+      </div>
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        <header className="mb-16 text-center relative z-10">
           {/* Logo */}
-          <div className="flex justify-center mb-4">
-            <img 
-              src="/binus-logo.png" 
-              alt="BINUS Logo" 
-              className="h-12 sm:h-16 md:h-20 w-auto object-contain animate-fade-in"
-            />
+          <div className="flex justify-center mb-6 animate-float">
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative bg-white rounded-2xl p-4 shadow-lg">
+                <img 
+                  src="/binus-logo.png" 
+                  alt="BINUS Logo" 
+                  className="h-12 sm:h-16 md:h-20 w-auto object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+                <div className="hidden">
+                  <svg className="h-12 sm:h-16 md:h-20 w-auto" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="200" height="80" rx="10" fill="url(#grad1)"/>
+                    <text x="100" y="50" fontFamily="Arial, sans-serif" fontSize="32" fontWeight="bold" fill="white" textAnchor="middle">BINUS</text>
+                    <defs>
+                      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor: '#4F46E5', stopOpacity: 1}} />
+                        <stop offset="100%" style={{stopColor: '#7C3AED', stopOpacity: 1}} />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="inline-block mb-4">
-            <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <div className="inline-block mb-8 animate-fade-in-up px-4">
+            <h1 className="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 leading-tight py-2">
               ✨ Digital Personality Scanner
             </h1>
           </div>
-          <p className="text-gray-600 text-lg">Interactive game-style personality test</p>
-          <p className="text-sm text-gray-500 mt-2">📸 images → 📖 stories → 🔀 forced choice → 🎯 results</p>
+          <p className="text-gray-700 text-lg md:text-xl font-medium animate-fade-in-up animation-delay-200 mb-6">Interactive game-style personality test</p>
+          <div className="flex items-center justify-center gap-2 mb-12 text-sm text-gray-600 animate-fade-in-up animation-delay-400">
+            <span className="bg-white px-3 py-1 rounded-full shadow-sm">📸 images</span>
+            <span className="text-gray-400">→</span>
+            <span className="bg-white px-3 py-1 rounded-full shadow-sm">📖 stories</span>
+            <span className="text-gray-400">→</span>
+            <span className="bg-white px-3 py-1 rounded-full shadow-sm">🔀 choices</span>
+            <span className="text-gray-400">→</span>
+            <span className="bg-white px-3 py-1 rounded-full shadow-sm">🎯 results</span>
+          </div>
         </header>
 
-        <main className="bg-transparent">
-          <div className="bg-white bg-opacity-90 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border border-indigo-200">
+        <main className="bg-transparent relative z-0">
+          <div className="bg-white bg-opacity-60 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white border-opacity-40 hover:shadow-3xl transition-all duration-500">
             {/* Step navigator */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg transition-all duration-300 ${
@@ -527,7 +595,7 @@ export default function App() {
             )}
           </div>
 
-          <footer className="mt-6 text-center text-xs text-gray-600 bg-white bg-opacity-70 backdrop-blur-sm p-4 rounded-xl">
+          <footer className="mt-6 text-center text-xs text-gray-600 bg-white bg-opacity-50 backdrop-blur-md p-4 rounded-xl border border-white border-opacity-40 hover:bg-opacity-70 transition-all duration-300">
             🎨 Built for workshop & interactive booths — customize questions, images, and scoring as needed.
           </footer>
         </main>
