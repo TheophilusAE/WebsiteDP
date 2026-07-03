@@ -495,14 +495,14 @@ export default function App() {
       <div className="max-w-6xl mx-auto relative z-10">
         <header className="mb-16 text-center relative z-10">
           {/* Logo */}
-          <div className="flex justify-center mb-6 animate-float">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 animate-float">
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-sm opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative bg-white rounded-2xl p-4 shadow-lg">
-                <img 
-                  src="/binus-logo.png" 
-                  alt="BINUS Logo" 
-                  className="h-12 sm:h-16 md:h-20 w-auto object-contain"
+              <div className="relative bg-white rounded-2xl p-4 shadow-lg h-16 sm:h-20 md:h-24 w-28 sm:w-32 md:w-36 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/binus-logo.png"
+                  alt="BINUS Logo"
+                  className="max-h-full max-w-full object-contain"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextSibling.style.display = 'block';
@@ -519,6 +519,25 @@ export default function App() {
                       </linearGradient>
                     </defs>
                   </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* BINUS 45th Anniversary logo — drop the file at public/binus-45th-logo.png to replace this placeholder */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-sm opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative bg-white rounded-2xl p-4 shadow-lg h-16 sm:h-20 md:h-24 w-28 sm:w-32 md:w-36 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/binus-45th-logo.png"
+                  alt="BINUS 45th Anniversary"
+                  className="max-h-full max-w-full object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="hidden w-full h-full items-center justify-center rounded-xl border-2 border-dashed border-indigo-300 bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-500 text-[9px] sm:text-[10px] font-semibold text-center leading-tight px-1">
+                  45th Anniversary Logo
                 </div>
               </div>
             </div>
