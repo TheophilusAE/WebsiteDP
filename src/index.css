@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   margin: 0;
@@ -107,10 +105,12 @@ code {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out;
+  animation-fill-mode: backwards;
 }
 
 .animate-slide-up {
   animation: slide-up 0.6s ease-out;
+  animation-fill-mode: backwards;
 }
 
 .animate-bounce-in {

@@ -85,6 +85,9 @@ export default function App() {
 
   const next = () => setStep((s) => s + 1);
   const prev = () => setStep((s) => Math.max(0, s - 1));
+  const goToStep = (target) => {
+    if (target <= step) setStep(target);
+  };
 
   const computeResult = () => {
     // return top 2 types
@@ -99,27 +102,31 @@ export default function App() {
       {
         key: "visionary",
         title: "Sunset Reflection",
+        subtitle: "Golden hour, big dreams.",
         img: "https://images.unsplash.com/photo-1501973801540-537f08ccae7b?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
         key: "caregiver",
         title: "Coffee Shop Chat",
+        subtitle: "Warm conversation, good company.",
         img: "https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
         key: "explorer",
         title: "Forest Path",
+        subtitle: "Wandering, discovering something new.",
         img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
       {
-        key: "Bambang",
+        key: "strategist",
         title: "Minimal Desk",
+        subtitle: "Clean lines, clear plans.",
         img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&crop=faces",
       },
     ];
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 animate-fade-in-up">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           Choose the image that best represents you
         </h2>
@@ -137,9 +144,20 @@ export default function App() {
               }`}
             >
               <div className="h-56 bg-gray-100 overflow-hidden relative">
-                <img src={c.img} alt={c.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img
+                  src={c.img}
+                  alt={c.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="hidden w-full h-full items-center justify-center bg-gradient-to-br from-indigo-200 to-purple-200 text-gray-500 text-sm font-medium absolute inset-0">
+                  {c.title}
+                </div>
                 {selectedAnswers.image === c.key && (
-                  <div className="absolute inset-0 bg-indigo-600 bg-opacity-20 flex items-center justify-center animate-fade-in">
+                  <div className="absolute inset-0 bg-indigo-600/20 flex items-center justify-center animate-fade-in">
                     <div className="text-white text-6xl animate-bounce-in">✓</div>
                   </div>
                 )}
@@ -191,7 +209,7 @@ export default function App() {
     ];
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 animate-fade-in-up">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           Story Reaction — Choose the response you'd most likely do
         </h2>
@@ -259,7 +277,7 @@ export default function App() {
     ];
 
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 animate-fade-in-up">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           Forced Choice — Pick one of two
         </h2>
@@ -372,7 +390,7 @@ export default function App() {
           {top.map((t, idx) => (
             <div key={t.id} className="bg-gradient-to-br from-white via-indigo-50 to-purple-50 p-8 rounded-3xl shadow-2xl border-2 border-indigo-200 transform hover:scale-105 transition-all duration-300 animate-slide-up" style={{animationDelay: `${idx * 200}ms`}}>
               <div className="flex items-center gap-3 mb-4">
-                <div className="text-6xl">{t.emoji}</div>
+                <div className="text-6xl animate-float">{t.emoji}</div>
                 <div className="flex-1">
                   <div className="text-xs font-semibold text-indigo-600 uppercase tracking-wide">
                     {idx === 0 ? '🏆 Primary Type' : '✨ Secondary Type'}
@@ -382,7 +400,7 @@ export default function App() {
               </div>
               <div className="text-sm text-indigo-600 font-medium mb-3">{t.short}</div>
               <div className="text-gray-700 leading-relaxed mb-4">{t.desc}</div>
-              <div className="bg-white bg-opacity-60 p-4 rounded-xl">
+              <div className="bg-white/60 p-4 rounded-xl">
                 <div className="font-semibold text-indigo-700 mb-2">💡 Quick tips:</div>
                 <ul className="space-y-2">
                   {t.tips.map((tip, i) => (
@@ -397,7 +415,7 @@ export default function App() {
           ))}
         </div>
 
-        <div className="bg-gradient-to-br from-white to-indigo-50 p-6 rounded-2xl shadow-lg border-2 border-indigo-200">
+        <div className="bg-gradient-to-br from-white to-indigo-50 p-6 rounded-2xl shadow-lg border-2 border-indigo-200 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
           <div className="font-bold text-xl text-gray-900 mb-4 flex items-center gap-2">
             <span className="text-2xl">📊</span> Score Breakdown
           </div>
@@ -433,7 +451,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="flex gap-4 justify-center flex-wrap">
+        <div className="flex gap-4 justify-center flex-wrap animate-fade-in-up" style={{ animationDelay: '550ms' }}>
           <button
             onClick={() => {
               setStep(0);
@@ -479,7 +497,7 @@ export default function App() {
           {/* Logo */}
           <div className="flex justify-center mb-6 animate-float">
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur-sm opacity-25 group-hover:opacity-50 transition duration-1000"></div>
               <div className="relative bg-white rounded-2xl p-4 shadow-lg">
                 <img 
                   src="/binus-logo.png" 
@@ -516,74 +534,109 @@ export default function App() {
         </header>
 
         <main className="bg-transparent relative z-0">
-          <div className="bg-white bg-opacity-60 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white border-opacity-40 hover:shadow-3xl transition-all duration-500">
-            {/* Step navigator */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg transition-all duration-300 ${
-                step === 0 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110" : "bg-gray-200 text-gray-600"
-              }`}>
-                1
+          <div className="bg-white/60 backdrop-blur-xl p-8 rounded-3xl shadow-2xl border border-white/40 hover:shadow-3xl transition-all duration-500">
+            {/* Step navigator — click any reached step to jump back to it */}
+            <div className="mb-8">
+              <div className="flex items-center justify-center gap-2 sm:gap-4">
+                <div className="flex flex-col items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => goToStep(0)}
+                    title="Step 1: Image Choice"
+                    className={`flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${
+                      step === 0
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110 cursor-pointer"
+                        : "bg-indigo-500 text-white cursor-pointer hover:scale-110 hover:shadow-lg"
+                    }`}
+                  >
+                    1
+                  </button>
+                  <span className="hidden sm:block text-[11px] font-medium text-gray-600">Images</span>
+                </div>
+
+                <div className={`h-1 w-6 sm:w-12 rounded-sm ${step > 0 ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-200'}`}></div>
+
+                <div className="flex flex-col items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => goToStep(1)}
+                    disabled={step < 1}
+                    title={step < 1 ? "Complete step 1 first" : "Step 2: Story Reaction"}
+                    className={`flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${
+                      step === 1
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110 cursor-pointer"
+                        : step > 1
+                        ? "bg-indigo-500 text-white cursor-pointer hover:scale-110 hover:shadow-lg"
+                        : "bg-gray-200 text-gray-600 cursor-not-allowed"
+                    }`}
+                  >
+                    2
+                  </button>
+                  <span className="hidden sm:block text-[11px] font-medium text-gray-600">Stories</span>
+                </div>
+
+                <div className={`h-1 w-6 sm:w-12 rounded-sm ${step > 1 ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-200'}`}></div>
+
+                <div className="flex flex-col items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => goToStep(2)}
+                    disabled={step < 2}
+                    title={step < 2 ? "Complete step 2 first" : "Step 3: Forced Choice"}
+                    className={`flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-full font-bold text-sm sm:text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${
+                      step === 2
+                        ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110 cursor-pointer"
+                        : step > 2
+                        ? "bg-indigo-500 text-white cursor-pointer hover:scale-110 hover:shadow-lg"
+                        : "bg-gray-200 text-gray-600 cursor-not-allowed"
+                    }`}
+                  >
+                    3
+                  </button>
+                  <span className="hidden sm:block text-[11px] font-medium text-gray-600">Choices</span>
+                </div>
+
+                <div className={`h-1 w-6 sm:w-12 rounded-sm ${step >= 3 ? 'bg-gradient-to-r from-green-600 to-emerald-600' : 'bg-gray-200'}`}></div>
+
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className={`flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-full font-bold text-xs sm:text-sm transition-all duration-300 ${
+                    step >= 3 ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg scale-110" : "bg-gray-200 text-gray-600"
+                  }`}>
+                    ✓
+                  </div>
+                  <span className="hidden sm:block text-[11px] font-medium text-gray-600">Results</span>
+                </div>
               </div>
-              <div className={`h-1 w-12 rounded ${step > 0 ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-200'}`}></div>
-              <div className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg transition-all duration-300 ${
-                step === 1 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110" : step > 1 ? "bg-indigo-500 text-white" : "bg-gray-200 text-gray-600"
-              }`}>
-                2
-              </div>
-              <div className={`h-1 w-12 rounded ${step > 1 ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-200'}`}></div>
-              <div className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg transition-all duration-300 ${
-                step === 2 ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110" : step > 2 ? "bg-indigo-500 text-white" : "bg-gray-200 text-gray-600"
-              }`}>
-                3
-              </div>
-              <div className={`h-1 w-12 rounded ${step >= 3 ? 'bg-gradient-to-r from-green-600 to-emerald-600' : 'bg-gray-200'}`}></div>
-              <div className={`flex items-center justify-center w-12 h-12 rounded-full font-bold text-sm transition-all duration-300 ${
-                step >= 3 ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg scale-110" : "bg-gray-200 text-gray-600"
-              }`}>
-                ✓
-              </div>
+              <p className="sm:hidden text-center text-xs text-gray-500 mt-3">
+                Step {Math.min(step + 1, 4)} of 4
+              </p>
             </div>
 
             {/* Content */}
             <div>
-              {step === 0 && <ImageChoices />}
-              {step === 1 && <StoryChoices />}
-              {step === 2 && <ForcedChoice />}
+              {step === 0 && ImageChoices()}
+              {step === 1 && StoryChoices()}
+              {step === 2 && ForcedChoice()}
               {step >= 3 && <ResultScreen />}
             </div>
 
-            {/* Footer controls for name and navigation when relevant */}
+            {/* Footer controls for name, shown alongside each step's own Back/Continue buttons */}
             {step < 3 && (
-              <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name (optional)"
-                    className="px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition-all"
-                  />
-                  <div className="text-sm text-gray-500 bg-indigo-50 px-3 py-2 rounded-lg">
-                    📝 Answers: {history.length}
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  {step > 0 && (
-                    <button onClick={prev} className="px-6 py-3 rounded-xl border-2 border-gray-300 hover:border-gray-400 font-medium transition-all hover:shadow-md">
-                      ← Back
-                    </button>
-                  )}
-                  {step === 0 && (
-                    <button onClick={() => setStep(1)} className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:shadow-xl transition-all transform hover:scale-105">
-                      Start Stories →
-                    </button>
-                  )}
+              <div className="mt-8 pt-6 border-t border-gray-200 flex items-center gap-4">
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name (optional)"
+                  className="px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-indigo-500 focus:outline-none transition-all"
+                />
+                <div className="text-sm text-gray-500 bg-indigo-50 px-3 py-2 rounded-lg">
+                  📝 Answers: {history.length}
                 </div>
               </div>
             )}
           </div>
 
-          <footer className="mt-6 text-center text-xs text-gray-600 bg-white bg-opacity-50 backdrop-blur-md p-4 rounded-xl border border-white border-opacity-40 hover:bg-opacity-70 transition-all duration-300">
+          <footer className="mt-6 text-center text-xs text-gray-600 bg-white/50 backdrop-blur-md p-4 rounded-xl border border-white/40 hover:bg-white/70 transition-all duration-300">
             Built for workshop & interactive booths — customize questions, images, and scoring as needed.
           </footer>
         </main>
